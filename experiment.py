@@ -88,9 +88,16 @@ if __name__ == "__main__":
         # Collect the answers.
         for img in images:
             while True:
+                
                 # Read inputs separated by spaces
                 iis = input("Image {0:3d} matches captions... ".format(
                     img.label)).strip().split(" ")
+                
+                # User has entered the empty string
+                if len(iis) == 1 and iis[0] == "":
+                    answers.append([img, []])
+                    break
+                
                 try:
                     # Try to decode integers
                     jjs = list(set([int(i) for i in iis]))
