@@ -137,7 +137,8 @@ if __name__ == "__main__":
             false_negatives += 1
 
         for z in all_labels.difference(present_labels):
-            true_negatives += 1
+            if z != img.label:
+                true_negatives += 1
 
     # Export the collected statistics.
     precision = true_positives / (true_positives + false_positives)
@@ -146,4 +147,7 @@ if __name__ == "__main__":
 
     # Write a data file.
     with open("statistics.json", "w") as f:
-        json.dump({"precision": precision, "recall": recall}, f)
+        json.dump({
+            "precision": precision, "recall": recall,
+            "true_positives": true_positives, "true_negatives": true_negatives,
+            "false_positives": false_positives, "false_negatives": false_negatives}, f)
